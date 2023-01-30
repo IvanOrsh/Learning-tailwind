@@ -1757,4 +1757,111 @@ animate-bounce	animation: bounce 1s infinite;
 
 ---
 
-### 3.
+### 3. Dev. Env (from tailwindcss docs)
+
+#### 3.1 Create an Environment with Tailwind CLI
+
+1. `npm i -D tailwindcss postcss autoprefixer`
+2. configure paths
+
+tailwind.config.cjs:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{js,ts,jsx,tsx,html}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [require("@tailwindcss/forms")], // when using plugins
+};
+```
+
+3. add the tailwind directives to our CSS
+
+index.css:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+---
+
+#### 3.2 Directives & Functions (from docs)
+
+- Directives are custom Tailwind-specific **at-rules** (css statements that instruct css how to behave) you can use in your css that offer special functionality for Tailwind CSS projects
+
+---
+
+`@layer`
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+```
+
+---
+
+`@apply`
+
+```css
+@layer base {
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+}
+
+@layer components {
+  .btn-blue {
+    @apply rounded-xl bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700;
+  }
+}
+```
+
+---
+
+`@config`
+
+```css
+@config "./tailwind.site.config.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+---
+
+**Functions**
+
+- `theme()` - used to access our tailwind config values using dot notation
+
+```css
+.content-area {
+  @apply bg-green-200;
+  height: theme("spacing.128");
+}
+```
+
+- `screen()` - allows us to create media queries that reference our breakpoints by name instead of duplicating their values in our own css.
+
+---
+
+### 4.
